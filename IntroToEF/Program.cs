@@ -8,8 +8,7 @@ namespace IntroToEF
     {
         private static void Main(string[] args)
         {
-            var menu = new Menu();
-            menu.ShowMenu();
+            new Menu().ShowMenu();
         }
     }
 }
