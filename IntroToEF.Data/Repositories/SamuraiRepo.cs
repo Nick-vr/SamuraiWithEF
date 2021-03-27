@@ -60,7 +60,7 @@ namespace IntroToEF.Data.Repositories
             else
             {
                 // Find a single object in a table by id -> No related data
-                 samurai = context.Samurais.Find(id);
+                samurai = context.Samurais.Find(id);
             }
 
             return samurai;
@@ -103,7 +103,7 @@ namespace IntroToEF.Data.Repositories
             // Using a find(id) does the exact same thing as below
             var samurai = context.Samurais
                 .Include(x => x.Horses)
-                .Include(x => x.Quotes.Where (y => y.Text.Contains("thank")))
+                .Include(x => x.Quotes.Where(y => y.Text.Contains("thank")))
                 .FirstOrDefault(x => x.Id == id);
 
             return samurai;
@@ -145,7 +145,6 @@ namespace IntroToEF.Data.Repositories
         public void GetSamuraiWithSql()
         {
             string sql = @"SELECT * FROM USers Where UserId = @id";
-
         }
 
         public void DeleteSamurai(int id)

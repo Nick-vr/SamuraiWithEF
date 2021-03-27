@@ -20,5 +20,10 @@ namespace IntroToEF.Data.Entities
         public Samurai Samurai { get; set; }
 
         public int SamuraiId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace IntroToEF.Data
     {
         // Each entity that needs a table needs to be defined here
         public DbSet<Quote> Quotes { get; set; }
+
         public DbSet<Samurai> Samurais { get; set; }
         public DbSet<Horse> Horses { get; set; }
         public DbSet<Battle> Battles { get; set; }
@@ -19,7 +20,7 @@ namespace IntroToEF.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(CONNECTION)
-                .LogTo(Console.WriteLine);
+            .LogTo(Console.WriteLine);
         }
     }
 }
