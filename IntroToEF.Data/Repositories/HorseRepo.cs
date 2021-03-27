@@ -44,7 +44,7 @@ namespace IntroToEF.Data.Repositories
                 .ToList();
         }
 
-        public void UpdateHorse(int id, Horse quote)
+        public void UpdateHorse(int id, Horse horse)
         {
             throw new NotImplementedException();
         }
