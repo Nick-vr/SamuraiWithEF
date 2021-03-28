@@ -2,10 +2,7 @@
 using IntroToEF.Data.Entities;
 using IntroToEF.Data.Repositories;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Data;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using ConsoleTables;
 using IntroToEF.Data;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +16,15 @@ namespace IntroToEF.Business
 
         private ISamuraiRepo _repo;
 
+        public int SamuraiId { get; set; }
         public string SamuraiName { get; set; }
         public string SamuraiDynasty { get; set; }
         public string SamuraiQuote { get; set; }
         public string HorseName { get; set; }
+        public int HorseAge { get; set; }
         public string IsItAwarHorse { get; set; }
         public string BattleName { get; set; }
-        public string BattleYear { get; set; }
+        public int BattleYear { get; set; }
         public string BattleLocation { get; set; }
 
         public Business()
@@ -42,11 +41,12 @@ namespace IntroToEF.Business
                 .Include(x => x.Battles)
                 .ToList();
 
-            var table = new ConsoleTable("Id", "Name", "Dynasty", "Horsename", "Quote");
+            var table = new ConsoleTable("Id", "Name", "Dynasty", "Horsename", "Quote", "Battle");
             foreach (var samu in samurai)
             {
                 var horseName = "";
                 var quoteText = "";
+                var battleName = "";
 
                 foreach (var horse in samu.Horses)
                 {
@@ -58,7 +58,12 @@ namespace IntroToEF.Business
                     quoteText = quote.ToString();
                 }
 
-                table.AddRow(samu.Id, samu.Name, samu.Dynasty, horseName, quoteText);
+                foreach (var battle in samu.Battles)
+                {
+                    battleName = battle.ToString();
+                }
+
+                table.AddRow(samu.Id, samu.Name, samu.Dynasty, horseName, quoteText, battleName);
             }
 
             table.Write();
@@ -75,31 +80,42 @@ namespace IntroToEF.Business
                 Dynasty = SamuraiDynasty,
                 Quotes = new List<Quote>
                 {
-                    new Quote
+                    new()
                     {
                         Text = SamuraiQuote,
                     }
                 },
                 Horses = new List<Horse>
                 {
-                    new Horse
+                    new()
                     {
                         IsWarHorse = IsItAwarHorse == "yes",
                         Name = HorseName,
+                        Age = HorseAge,
                     }
                 },
                 Battles = new List<Battle>
                 {
-                    new Battle
+                    new()
                     {
                         Name = BattleName,
-                        Year = Convert.ToInt32(BattleYear),
+                        Year = BattleYear,
                         Location = BattleLocation,
                     }
                 }
             };
 
             _repo.AddSamurai(samurai);
+        }
+
+        public void UpdateSamuraiFromUserInput()
+        {
+            var samurai = _repo.GetSamurai(SamuraiId);
+
+            samurai.Name = SamuraiName;
+            samurai.Dynasty = SamuraiDynasty;
+
+            _repo.UpdateSamurai(samurai);
         }
 
         public List<Samurai> GetSamuraiWhoSaidAWord(string word)
@@ -121,12 +137,12 @@ namespace IntroToEF.Business
                 Dynasty = "Sengoku",
                 Horses = new List<Horse>
                 {
-                    new Horse
+                    new()
                     {
                         IsWarHorse = true,
                         Name = "Roach"
                     },
-                    new Horse
+                    new()
                     {
                         IsWarHorse = false,
                         Name = "Boeddika"
@@ -139,17 +155,17 @@ namespace IntroToEF.Business
 
         public void AddSamuraiWhoFoughtInBattles()
         {
-            Samurai veteran = new Samurai
+            var veteran = new Samurai
             {
                 Name = "A weary broken man",
                 Battles = new List<Battle>
                 {
-                    new Battle
+                    new()
                     {
                         Name = "Okinagawa",
                         Year = 1557
                     },
-                    new Battle
+                    new()
                     {
                         Name = "Fukushima",
                         Year = 2011

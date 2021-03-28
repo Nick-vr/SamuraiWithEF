@@ -1,8 +1,4 @@
-﻿using IntroToEF.Data.Repositories;
-using System;
-using IntroToEF.Business;
-
-namespace IntroToEF
+﻿namespace IntroToEF
 {
     internal class Program
     {

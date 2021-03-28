@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntroToEF.Data.Entities
 {
@@ -21,5 +17,10 @@ namespace IntroToEF.Data.Entities
         public string Location { get; set; }
 
         public List<Samurai> Samurais { get; set; } = new List<Samurai>();
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }

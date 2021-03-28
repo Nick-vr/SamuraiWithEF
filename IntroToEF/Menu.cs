@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Net.Mime;
 
 namespace IntroToEF
 {
@@ -30,9 +30,9 @@ namespace IntroToEF
             Console.WriteLine("-------------------------------");
             Console.WriteLine();
             Console.WriteLine("What do you want to do?");
-            Console.WriteLine("1. Add new Samurai to the DB");
-            Console.WriteLine("2. Update something in the DB");
-            Console.WriteLine("3. Delete something in the DB");
+            Console.WriteLine("1. Add new Samurai ");
+            Console.WriteLine("2. Update Samurai");
+            Console.WriteLine("3. Delete Samurai");
             Console.WriteLine("4. Show DB");
             Console.WriteLine("5. Exit");
 
@@ -40,13 +40,15 @@ namespace IntroToEF
             {
                 case "1":
                     Console.Clear();
-                    GetSamuraiFromUserInput();
+                    GetSamuraiInfoFromUserInputForAdding();
                     _business.AddSamuraiFromUserInput();
                     ShowMenu();
                     return false;
 
                 case "2":
-
+                    _business.ShowSamuraiDb();
+                    GetSamuraiIdForUpdate();
+                    _business.UpdateSamuraiFromUserInput();
                     return false;
 
                 case "3":
@@ -62,15 +64,15 @@ namespace IntroToEF
                     return false;
 
                 case "5":
-                    ShowMenu();
-                    return true;
+                    Environment.Exit(0);
+                    return false;
 
                 default:
                     return true;
             }
         }
 
-        public void GetSamuraiFromUserInput()
+        public void GetSamuraiInfoFromUserInputForAdding()
         {
             Console.WriteLine("Samurai name?");
             _business.SamuraiName = Console.ReadLine();
@@ -80,14 +82,26 @@ namespace IntroToEF
             _business.SamuraiQuote = Console.ReadLine();
             Console.WriteLine($"What was the name of {_business.SamuraiName}'s horse?");
             _business.HorseName = Console.ReadLine();
+            Console.WriteLine($"What was the age of {_business.SamuraiName}'s horse?");
+            _business.HorseAge = Convert.ToInt16(Console.ReadLine());
             Console.WriteLine("Was it a warhorse? yes/no");
             _business.IsItAwarHorse = Console.ReadLine();
             Console.WriteLine($"Which battle did {_business.SamuraiName} fight in?");
             _business.BattleName = Console.ReadLine();
             Console.WriteLine("Year of the battle?");
-            _business.BattleYear = Console.ReadLine();
+            _business.BattleYear = Convert.ToInt16(Console.ReadLine());
             Console.WriteLine("Location of the battle?");
             _business.BattleLocation = Console.ReadLine();
+        }
+
+        public void GetSamuraiIdForUpdate()
+        {
+            Console.WriteLine("Give Samurai ID you want to update");
+            _business.SamuraiId = Convert.ToInt16(Console.ReadLine());
+            Console.WriteLine("Samurai name?");
+            _business.SamuraiName = Console.ReadLine();
+            Console.WriteLine("What dynasty?");
+            _business.SamuraiDynasty = Console.ReadLine();
         }
     }
 }

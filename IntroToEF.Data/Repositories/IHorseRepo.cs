@@ -1,5 +1,4 @@
 ﻿using IntroToEF.Data.Entities;
-using System;
 using System.Collections.Generic;
 
 namespace IntroToEF.Data.Repositories
