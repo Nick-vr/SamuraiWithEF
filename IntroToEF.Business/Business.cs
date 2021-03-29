@@ -118,6 +118,11 @@ namespace IntroToEF.Business
             _repo.UpdateSamurai(samurai);
         }
 
+        public void DeleteSamuraiFromUserInput()
+        {
+            _repo.DeleteSamurai(SamuraiId);
+        }
+
         public List<Samurai> GetSamuraiWhoSaidAWord(string word)
         {
             var result = _repo.GetResultFromStoredProcedure(word);

@@ -49,11 +49,15 @@ namespace IntroToEF
                     _business.ShowSamuraiDb();
                     GetSamuraiIdForUpdate();
                     _business.UpdateSamuraiFromUserInput();
+                    ShowMenu();
                     return false;
 
                 case "3":
-                    //dosomething
-                    return true;
+                    _business.ShowSamuraiDb();
+                    GetSamuraiIdForDelete();
+                    _business.DeleteSamuraiFromUserInput();
+                    ShowMenu();
+                    return false;
 
                 case "4":
                     Console.Clear();
@@ -102,6 +106,12 @@ namespace IntroToEF
             _business.SamuraiName = Console.ReadLine();
             Console.WriteLine("What dynasty?");
             _business.SamuraiDynasty = Console.ReadLine();
+        }
+
+        public void GetSamuraiIdForDelete()
+        {
+            Console.WriteLine("Give Samurai ID you want to delete");
+            _business.SamuraiId = Convert.ToInt16(Console.ReadLine());
         }
     }
 }

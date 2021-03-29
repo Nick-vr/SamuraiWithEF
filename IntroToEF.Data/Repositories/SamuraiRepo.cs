@@ -149,7 +149,7 @@ namespace IntroToEF.Data.Repositories
 
         public void DeleteSamurai(int id)
         {
-            Samurai samurai = GetSamurai(id);
+            var samurai = GetSamurai(id);
             _context.Samurais.Remove(samurai);
             _context.SaveChanges();
         }
