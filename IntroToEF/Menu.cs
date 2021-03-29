@@ -46,6 +46,7 @@ namespace IntroToEF
                     return false;
 
                 case "2":
+                    Console.Clear();
                     _business.ShowSamuraiDb();
                     GetSamuraiIdForUpdate();
                     _business.UpdateSamuraiFromUserInput();
@@ -53,6 +54,7 @@ namespace IntroToEF
                     return false;
 
                 case "3":
+                    Console.Clear();
                     _business.ShowSamuraiDb();
                     GetSamuraiIdForDelete();
                     _business.DeleteSamuraiFromUserInput();
